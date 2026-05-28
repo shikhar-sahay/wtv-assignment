@@ -4,13 +4,18 @@ import { Item } from "@/types/item"
 
 interface Props {
   items: Item[]
+  onEdit: (id: string, newValue: string) => void
 }
 
-export default function ItemList({ items }: Props) {
+export default function ItemList({ items, onEdit }: Props) {
   return (
     <div className={styles.grid}>
       {items.map((item) => (
-        <ItemCard key={item.id} item={item} />
+        <ItemCard
+          key={item.id}
+          item={item}
+          onEdit={onEdit}
+        />
       ))}
     </div>
   )
