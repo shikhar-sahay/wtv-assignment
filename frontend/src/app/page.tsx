@@ -4,8 +4,14 @@ import { useEffect, useState } from "react"
 import ItemList from "@/components/ItemList/ItemList"
 import { Item } from "@/types/item"
 import { getItems, updateItem } from "@/services/items"
+import { useAuthStore } from "@/store/authStore"
+import { useRequireAuth } from "@/hooks/useRequireAuth"
 
 export default function Home() {
+  useRequireAuth()
+
+  const logout = useAuthStore((state) => state.logout)
+
   const [items, setItems] = useState<Item[]>([])
 
   useEffect(() => {
@@ -21,19 +27,13 @@ export default function Home() {
     fetchItems()
   }, [])
 
-  const handleEdit = async (
-    id: string,
-    newValue: string
-  ) => {
+  const handleEdit = async (id: string, newValue: string) => {
     try {
-      const updatedItem =
-        await updateItem(id, newValue)
+      const updatedItem = await updateItem(id, newValue)
 
       setItems((prevItems) =>
         prevItems.map((item) =>
-          item.id === id
-            ? updatedItem
-            : item
+          item.id === id ? updatedItem : item
         )
       )
     } catch (error) {
@@ -43,10 +43,13 @@ export default function Home() {
 
   return (
     <main style={{ padding: "2rem" }}>
-      <ItemList
-        items={items}
-        onEdit={handleEdit}
-      />
+      <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "1rem" }}>
+        <button onClick={logout}>
+          Logout
+        </button>
+      </div>
+
+      <ItemList items={items} onEdit={handleEdit} />
     </main>
   )
 }
