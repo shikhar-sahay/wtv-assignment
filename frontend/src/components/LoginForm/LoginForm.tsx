@@ -1,19 +1,23 @@
 "use client"
 
 import { useState } from "react"
+import { useAuthStore } from "@/store/authStore"
 import styles from "./LoginForm.module.scss"
 
 export default function LoginForm() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
 
+  const setTokens = useAuthStore(
+    (state) => state.setTokens
+  )
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
-    console.log({
-      username,
-      password,
-    })
+    setTokens("fake-access", "fake-refresh")
+
+    console.log("Logged in")
   }
 
   return (
