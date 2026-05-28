@@ -13,27 +13,27 @@ interface AuthState {
   logout: () => void
 }
 
-export const useAuthStore =
-  create<AuthState>()(
-    persist(
-      (set) => ({
-        accessToken: null,
-        refreshToken: null,
+export const useAuthStore = create<AuthState>()(
+  persist(
+    (set) => ({
+      accessToken: null,
 
-        setTokens: (access, refresh) =>
-          set({
-            accessToken: access,
-            refreshToken: refresh,
-          }),
+      refreshToken: null,
 
-        logout: () =>
-          set({
-            accessToken: null,
-            refreshToken: null,
-          }),
-      }),
-      {
-        name: "auth-storage",
-      }
-    )
+      setTokens: (access, refresh) =>
+        set({
+          accessToken: access,
+          refreshToken: refresh,
+        }),
+
+      logout: () =>
+        set({
+          accessToken: null,
+          refreshToken: null,
+        }),
+    }),
+    {
+      name: "auth-storage",
+    }
   )
+)
