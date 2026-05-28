@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 import { useRouter } from "next/navigation"
 
@@ -13,13 +13,28 @@ export const useRequireAuth = () => {
     (state) => state.accessToken
   )
 
+  const [mounted, setMounted] =
+    useState(false)
+
   useEffect(() => {
-    if (!accessToken) {
+    setMounted(true)
+  }, [])
+
+  useEffect(() => {
+    if (
+      mounted &&
+      !accessToken
+    ) {
       router.push("/login")
     }
-  }, [accessToken, router])
+  }, [
+    mounted,
+    accessToken,
+    router,
+  ])
 
   return {
     accessToken,
+    mounted,
   }
 }
