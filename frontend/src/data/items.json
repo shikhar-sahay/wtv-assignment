@@ -1,0 +1,17 @@
+[
+  {
+    "id": "1",
+    "key": "Name",
+    "value": "Timmy"
+  },
+  {
+    "id": "2",
+    "key": "Role",
+    "value": "Detective"
+  },
+  {
+    "id": "3",
+    "key": "Favorite Club",
+    "value": "FC Barcelona"
+  }
+]
