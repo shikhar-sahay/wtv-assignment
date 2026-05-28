@@ -3,27 +3,41 @@
 import { useState } from "react"
 import { useAuthStore } from "@/store/authStore"
 import styles from "./LoginForm.module.scss"
-import api from "@/services/api"
 import useApi from "@/hooks/useApi"
 
 export default function LoginForm() {
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
 
+  const { post, loading, error } = useApi()
+
   const setTokens = useAuthStore(
     (state) => state.setTokens
   )
 
-  const { loading, error } = useApi()
-
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (
+    e: React.FormEvent
+  ) => {
     e.preventDefault()
 
-    setTokens("fake-access", "fake-refresh")
+    try {
+      const data = await post(
+        "/auth/token/",
+        {
+          username,
+          password,
+        }
+      )
 
-    console.log(api.defaults.baseURL)
+      setTokens(
+        data.access,
+        data.refresh
+      )
 
-    console.log("Logged in")
+      console.log("Login success")
+    } catch (err) {
+      console.error(err)
+    }
   }
 
   return (
