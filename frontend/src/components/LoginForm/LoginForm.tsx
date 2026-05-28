@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useAuthStore } from "@/store/authStore"
 import styles from "./LoginForm.module.scss"
 import api from "@/services/api"
+import useApi from "@/hooks/useApi"
 
 export default function LoginForm() {
   const [username, setUsername] = useState("")
@@ -12,7 +13,10 @@ export default function LoginForm() {
   const setTokens = useAuthStore(
     (state) => state.setTokens
   )
-    const handleSubmit = (e: React.FormEvent) => {
+
+  const { loading, error } = useApi()
+
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault()
 
     setTokens("fake-access", "fake-refresh")
@@ -20,7 +24,8 @@ export default function LoginForm() {
     console.log(api.defaults.baseURL)
 
     console.log("Logged in")
-    }
+  }
+
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <h1>Login</h1>
@@ -41,8 +46,14 @@ export default function LoginForm() {
         className={styles.input}
       />
 
-      <button type="submit" className={styles.button}>
-        Login
+      {error && <p>{error}</p>}
+
+      <button
+        type="submit"
+        className={styles.button}
+        disabled={loading}
+      >
+        {loading ? "Loading..." : "Login"}
       </button>
     </form>
   )
