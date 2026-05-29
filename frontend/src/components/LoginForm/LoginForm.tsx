@@ -45,7 +45,7 @@ export default function LoginForm() {
 
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
-      <h1>Login</h1>
+      <h1>Login Panel</h1>
 
       <input
         type="text"
