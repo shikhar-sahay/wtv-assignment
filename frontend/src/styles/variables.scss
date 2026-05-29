@@ -1,21 +1,26 @@
-$bg-body: #0f172a;        
-$bg-panel: #1e293b;       
-$bg-input: #0f172a;       
-$border-color: #334155;   
-$border-hover: #475569;   
+$bg-body: #161618;
+$bg-card: #1f1f23;
+$bg-panel: #1f1f23;
+$bg-input: #0d0d0f;
+$border-color: #2e2e33;
+$border-hover: #3e3e46;
 
-$primary: #6366f1;       
-$primary-hover: #4f46e5;  
-$danger: #f43f5e;         
-$danger-hover: #e11d48;   
+$brand-cyan: #00a8e8;
+$brand-cyan-hover: #33b9f0;
+$brand-blue: #2563eb;
+$brand-red: #ef4444;
+$brand-green: #22c55e;        
+$brand-green-hover: #4ade80;  
 
-$text-main: #f8fafc;      
-$text-sub: #cbd5e1;       
-$text-muted: #64748b;     
+$primary: #6366f1;
+$primary-hover: #4f46e5;
+$text-main: #ffffff;
+$text-sub: #a1a1aa;
+$text-muted: #71717a;
+$danger: #ef4444;
 
-$font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+$font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
-$radius-sm: 6px;
-$radius-md: 10px;
-
-$transition-default: 0.2s ease-in-out;
+$radius-sm: 4px;
+$radius-md: 8px;
+$transition-default: 0.25s cubic-bezier(0.4, 0, 0.2, 1);

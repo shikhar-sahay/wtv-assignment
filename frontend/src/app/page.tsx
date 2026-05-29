@@ -29,7 +29,7 @@ export default function Home() {
     }
 
     fetchItems()
-  }, [get])
+  }, [])
 
   const handleEdit = async (id: string, newValue: string) => {
     try {
@@ -52,7 +52,7 @@ export default function Home() {
         <h1>Data Panel</h1>
 
         <div className={styles.userMenu}>
-          <span className={styles.username}>Administrator</span>
+          <span className={styles.username}>Administrator View</span>
           <button onClick={logout} className={styles.logoutBtn}>
             Logout
           </button>
