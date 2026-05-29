@@ -1,11 +1,13 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from "next/navigation"
 import { useAuthStore } from "@/store/authStore"
 import styles from "./LoginForm.module.scss"
 import useApi from "@/hooks/useApi"
 
 export default function LoginForm() {
+  const router = useRouter()
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
 
@@ -35,6 +37,7 @@ export default function LoginForm() {
       )
 
       console.log("Login success")
+      router.push("/")
     } catch (err) {
       console.error(err)
     }
@@ -50,6 +53,8 @@ export default function LoginForm() {
         value={username}
         onChange={(e) => setUsername(e.target.value)}
         className={styles.input}
+        disabled={loading}
+        required
       />
 
       <input
@@ -58,9 +63,11 @@ export default function LoginForm() {
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         className={styles.input}
+        disabled={loading}
+        required
       />
 
-      {error && <p>{error}</p>}
+      {error && <p className={styles.error}>{error === "Something went wrong" ? "Invalid credentials" : error}</p>}
 
       <button
         type="submit"

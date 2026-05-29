@@ -4,7 +4,7 @@ import { Item } from "@/types/item"
 
 interface Props {
   items: Item[]
-  onEdit: (id: string, newValue: string) => void
+  onEdit: (id: string, newValue: string) => Promise<void>
 }
 
 export default function ItemList({ items, onEdit }: Props) {
