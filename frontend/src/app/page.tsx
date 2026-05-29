@@ -3,9 +3,10 @@
 import { useEffect, useState } from "react"
 import ItemList from "@/components/ItemList/ItemList"
 import { Item } from "@/types/item"
-import { getItems, updateItem } from "@/services/items"
 import { useAuthStore } from "@/store/authStore"
 import { useRequireAuth } from "@/hooks/useRequireAuth"
+import useApi from "@/hooks/useApi"
+import styles from "./page.module.scss"
 
 export default function Home() {
   useRequireAuth()
@@ -13,43 +14,67 @@ export default function Home() {
   const logout = useAuthStore((state) => state.logout)
 
   const [items, setItems] = useState<Item[]>([])
+  const { get, patch, loading, error } = useApi()
 
   useEffect(() => {
     const fetchItems = async () => {
       try {
-        const data = await getItems()
-        setItems(data)
-      } catch (error) {
-        console.error(error)
+        const data = await get("/api/items/")
+        if (Array.isArray(data)) {
+          setItems(data)
+        }
+      } catch (err) {
+        console.error(err)
       }
     }
 
     fetchItems()
-  }, [])
+  }, [get])
 
   const handleEdit = async (id: string, newValue: string) => {
     try {
-      const updatedItem = await updateItem(id, newValue)
+      const updatedItem = await patch(`/api/items/${id}/`, { value: newValue })
 
       setItems((prevItems) =>
         prevItems.map((item) =>
           item.id === id ? updatedItem : item
         )
       )
-    } catch (error) {
-      console.error(error)
+    } catch (err) {
+      console.error(err)
+      throw err
     }
   }
 
   return (
-    <main style={{ padding: "2rem" }}>
-      <div style={{ display: "flex", justifyContent: "flex-end", marginBottom: "1rem" }}>
-        <button onClick={logout}>
-          Logout
-        </button>
+    <main className={styles.container}>
+      <header className={styles.header}>
+        <h1>Data Panel</h1>
+
+        <div className={styles.userMenu}>
+          <span className={styles.username}>Administrator</span>
+          <button onClick={logout} className={styles.logoutBtn}>
+            Logout
+          </button>
+        </div>
+      </header>
+
+      <div className={styles.statsBar}>
+        <div className={styles.statCard}>
+          Total items: <strong>{items.length}</strong>
+        </div>
+        <div className={styles.statCard}>
+          <span className={styles.dot} /> Sync: <strong>Postgres DB</strong>
+        </div>
       </div>
 
-      <ItemList items={items} onEdit={handleEdit} />
+      {error && <div className={styles.error}>{error}</div>}
+
+      {loading && items.length === 0 ? (
+        <div className={styles.loading}>Synchronizing database items...</div>
+      ) : (
+        <ItemList items={items} onEdit={handleEdit} />
+      )}
     </main>
   )
 }

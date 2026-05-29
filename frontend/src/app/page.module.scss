@@ -1,0 +1,103 @@
+@import '../styles/variables';
+
+.container {
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid $border-color;
+  padding-bottom: 1rem;
+
+  h1 {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: $text-main;
+    letter-spacing: -0.01em;
+  }
+}
+
+.userMenu {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.username {
+  font-size: 0.9rem;
+  color: $text-sub;
+  font-weight: 500;
+}
+
+.logoutBtn {
+  padding: 0.5rem 1rem;
+  border: 1px solid $border-color;
+  border-radius: $radius-sm;
+  background: transparent;
+  color: $text-sub;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all $transition-default;
+
+  &:hover {
+    background: rgba($danger, 0.1);
+    border-color: rgba($danger, 0.3);
+    color: $danger;
+  }
+}
+
+.statsBar {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.statCard {
+  background: $bg-panel;
+  border: 1px solid $border-color;
+  border-radius: $radius-sm;
+  padding: 0.75rem 1.25rem;
+  font-size: 0.85rem;
+  color: $text-sub;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  strong {
+    color: $text-main;
+    font-weight: 700;
+  }
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    background: #10b981;
+    border-radius: 50%;
+    display: inline-block;
+  }
+}
+
+.loading {
+  text-align: center;
+  padding: 4rem 0;
+  color: $text-muted;
+  font-size: 0.95rem;
+}
+
+.error {
+  background: rgba($danger, 0.1);
+  border: 1px solid rgba($danger, 0.2);
+  color: $danger;
+  padding: 0.75rem 1rem;
+  border-radius: $radius-sm;
+  font-size: 0.9rem;
+}
