@@ -8,7 +8,7 @@ export default function useApi() {
   const [error, setError] = useState<string | null>(null)
 
   const request = async (
-    method: "get" | "post" | "put" | "delete",
+    method: "get" | "post" | "put" | "delete" | "patch",
     url: string,
     data?: unknown
   ) => {
@@ -47,6 +47,9 @@ export default function useApi() {
 
     put: (url: string, data?: unknown) =>
       request("put", url, data),
+
+    patch: (url: string, data?: unknown) =>
+      request("patch", url, data),
 
     delete: (url: string) =>
       request("delete", url),
